@@ -1,3 +1,4 @@
+import json
 from faker import Faker
 from collections import defaultdict
 
@@ -25,11 +26,14 @@ class Lion(Predators):
         super().__init__(name)
         self.pride = pride
 
-    def lion_hunting(self):
+    def lion_hunting(self, speed=50):
         if self.pride:
             print("My pride name is " + self.pride + " and we are hunting together")
         else:
             print("I don't have pride, because i like to hunt alone")
+        super().roar()
+        super().chase(speed)
+        super().bite()
 
 
 class Cheetah(Predators):
@@ -37,6 +41,9 @@ class Cheetah(Predators):
         super().__init__(name)
 
     def cheetah_hunting(self):
+        super().roar()
+        super().chase(120)
+        super().bite()
         print("I am fastest land Animal on the planet")
 
 
@@ -51,39 +58,29 @@ cheetah1 = Cheetah(fake.name())
 
 def name_to_pride(lions_list):
     lions_dict = {i.pride: i.name for i in lions_list if i.pride is not None}
-    return lions_dict
+    lions_json = json.dumps(lions_dict)
+    return lions_json
 
 
 def name_to_pride_advanced(lions_list):
-    d = defaultdict(list)
+    lions_advanced_dict = defaultdict(list)
     for i in lions_list:
         if i.pride is not None:
-            d[i.pride].append(i.name)
-    return dict(d)
+            lions_advanced_dict[i.pride].append(i.name)
+    lions_advanced_json = json.dumps(lions_advanced_dict)
+    return lions_advanced_json
 
 
 lion1.lion_hunting()
-lion1.roar()
-lion1.chase(50)
-lion1.bite()
 print("++++++++++++++")
 lion3.lion_hunting()
-lion3.roar()
-lion3.chase(50)
-lion3.bite()
 print("++++++++++++++")
 lion4.roar()
 print("++++++++++++++")
-lion5.bite()
+lion2.bite()
 print("++++++++++++++")
-lion6.lion_hunting()
-lion6.roar()
-lion6.chase(70)
-lion6.bite()
+lion6.lion_hunting(70)
 print("++++++++++++++")
-cheetah1.roar()
-cheetah1.chase(120)
-cheetah1.bite()
 cheetah1.cheetah_hunting()
 print("++++++++++++++")
 print(name_to_pride([lion1, lion2, lion3, lion4, lion5, lion6]))
