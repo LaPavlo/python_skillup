@@ -40,9 +40,9 @@ class Cheetah(Predators):
     def __init__(self, name):
         super().__init__(name)
 
-    def cheetah_hunting(self):
+    def cheetah_hunting(self, speed=120):
         super().roar()
-        super().chase(120)
+        super().chase(speed)
         super().bite()
         print("I am fastest land Animal on the planet")
 
